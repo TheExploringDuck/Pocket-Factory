@@ -7,9 +7,12 @@ These instructions apply to Codex and other coding agents working in this reposi
 Before modifying the project:
 
 1. Read `README.md`.
-2. Read `PLAN.md`.
-3. Read the GitHub issue being worked on.
-4. Inspect the current implementation before assuming how a system works.
+2. Read `GAME_RULES.md` for the current economy, progression, reset, factory, and monetization design.
+3. Read `PLAN.md`.
+4. Read the GitHub issue being worked on.
+5. Inspect the current implementation before assuming how a system works.
+
+`GAME_RULES.md` is the numerical/design source of truth for currently approved gameplay parameters. Values marked **TBD** or **provisional** must remain configurable and must not be silently invented or treated as final.
 
 Do not redesign unrelated systems as part of a targeted task.
 
@@ -36,6 +39,8 @@ The factory itself should be fun to watch. Avoid reducing the game to menus and 
 
 ## Economy Rules
 
+- Follow the approved numerical and progression rules in `GAME_RULES.md`.
+- Do not invent values for parameters marked TBD/provisional.
 - Production must function without ads.
 - Normal progression must remain possible without watching ads.
 - Offline progression must be bounded and validated against clock errors and extreme elapsed-time values.
@@ -48,6 +53,8 @@ The factory itself should be fun to watch. Avoid reducing the game to menus and 
 Pocket Factory is intended to monetize with advertising, but monetization must not become the gameplay loop.
 
 Preferred model: **rewarded ads**.
+
+The current primary rewarded-ad concept is **2x production for 5 minutes**, as documented in `GAME_RULES.md`.
 
 Allowed examples include:
 
