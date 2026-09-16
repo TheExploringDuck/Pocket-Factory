@@ -177,47 +177,53 @@ Earlier resources should ideally retain utility through conversion or supply-cha
 
 A separate permanent currency tentatively called **Gems** is planned.
 
-Current concept:
+Design intent:
 
 - survives resets and factory transitions;
-- approximately **1–2% global drop chance**;
-- rare enough to remain valuable;
-- not required for ordinary progression;
+- remains a rare and valuable resource;
+- is not required for ordinary progression;
 - may support permanent quality-of-life upgrades, permanent efficiency improvements, cosmetics, or optional boosts.
 
-Exact Gem drop probability, eligible roll sources, amount per drop, and spending catalog are **TBD**.
+Exact drop behavior, eligible roll sources, amount per drop, and spending catalog remain **TBD** and should be balance-tested before finalization.
 
-## Monetization concepts — planned, not final economy constants
+## Monetization philosophy — planned, values intentionally TBD
+
+Pocket Factory may use optional monetization to support development, but monetization should complement the factory loop rather than become the reason the loop exists.
+
+All prices, reward magnitudes, durations, bundle quantities, and other monetization values are intentionally **TBD** until the base economy has been implemented and tested. Coding agents must keep these values configurable and must not invent final constants.
 
 ### Rewarded advertising
 
-Primary proposed reward:
+Rewarded ads are the preferred advertising model. Potential rewards include temporary production boosts, offline-earnings bonuses, shipment completion, temporary overclocking, bonus materials, or other optional accelerators.
 
-- completed rewarded ad → **2x production rate for 5 minutes**.
-
-Ads remain optional. Reward only after confirmed successful completion. Ad failure or refusal must never block normal progression.
+Ads must remain voluntary. Rewards are granted only after confirmed successful completion. Ad failure, no-fill, offline mode, or refusal must never block ordinary progression or corrupt game state.
 
 ### Resource bundles
 
-Planned Metal Ore and Currency purchase bundles across approximately **$4.99 to $44.99**.
+Optional purchases may provide Metal Ore, Currency, Gems, or other appropriate resources once the economy is sufficiently mature to determine fair values.
 
-Exact quantities must be set after the base economy is balanced and should remain relevant across factory tiers without making normal progression meaningless.
+Bundles should provide convenience or acceleration without making normal progression meaningless. Bundle contents should remain relevant across factory tiers and should be derived from actual progression-time data rather than arbitrary fixed amounts.
 
-### Supervisor bundle
+### Supervisor / progression bundles
 
-Working concept: approximately **$29.99** for:
+A future bundle may combine a Supervisor with useful Production Line progression or related factory resources.
 
-- 1 Supervisor;
-- 2 Production Lines;
-- included Production Lines already leveled to a useful state.
+Exact contents, progression level, availability rules, and pricing are intentionally undecided. Any such bundle should accelerate an existing progression path rather than unlock gameplay that free players cannot reach.
 
-Exact included levels and value are TBD.
+### Ad-free option
 
-### Ad-free
+An optional ad-free purchase is planned. Final pricing and exact behavior remain TBD.
 
-Working price: **$7.99 or $9.99** — final price TBD.
+If rewarded ads remain available to ad-free owners, participation must remain explicitly voluntary and the product description must clearly communicate what the ad-free purchase removes.
 
-If rewarded ads remain available to ad-free owners, they must remain explicitly voluntary.
+### Monetization implementation rules
+
+- The full game must remain playable without purchases or ads.
+- Do not sell randomized paid rewards or loot boxes.
+- Do not create artificial frustration solely to pressure purchases or ad views.
+- Monetization systems should be abstracted from the core simulation so providers and storefront integrations can change without rewriting the economy.
+- Purchase and ad rewards must be idempotent and safe against duplicate callbacks.
+- Final monetization values should be selected only after progression simulations and real testing provide enough data to judge their effect on the economy.
 
 ## Balance parameters still requiring approval
 
@@ -233,7 +239,6 @@ Before treating the complete economy as production-ready, determine:
 8. Factory completion rewards.
 9. Giga-Factory transition rules and first new material.
 10. Gem drop rules and Gem spending.
-11. Paid resource-bundle quantities.
-12. Final ad-free price and Supervisor-bundle contents.
+11. Monetization reward magnitudes, bundle contents, durations, and pricing.
 
 Coding agents should keep these parameters configurable and must not silently choose final values for TBD items.
