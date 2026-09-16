@@ -52,9 +52,9 @@ The factory itself should be fun to watch. Avoid reducing the game to menus and 
 
 Pocket Factory is intended to monetize with advertising, but monetization must not become the gameplay loop.
 
-Preferred model: **rewarded ads**.
+Preferred model: **optional rewarded ads**.
 
-The current primary rewarded-ad concept is **2x production for 5 minutes**, as documented in `GAME_RULES.md`.
+Reward magnitudes, durations, prices, and bundle quantities are intentionally not fixed during early development. Keep them configurable and derive final values from economy simulations and player testing rather than inventing constants.
 
 Allowed examples include:
 
