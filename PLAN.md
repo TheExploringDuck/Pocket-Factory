@@ -25,6 +25,18 @@ Build and validate a small complete loop before expanding content:
 - Basic mobile factory screen
 - Simulation separated from presentation so economy tests can run headlessly
 
+## Technical direction
+
+Pocket Factory is a **Godot / C#** project. Keep gameplay economy and progression logic in a headless C# core so balancing tests can run without launching the Godot editor or rendering the game.
+
+## Presentation direction
+
+Pocket Factory should use a **late-NES-inspired pixel-art factory style built on a traditional idle-miner cutaway**. The target feel is a readable, capable company site: underground work levels, elevator logistics, practical early facilities, carts, conveyors, furnaces, shipping bays, simple framed HUD panels, and animation built from clear chunky sprites.
+
+Industrial is the primary playable presentation. An Advanced sci-fi skin may reinterpret the same factory layout with signal infrastructure, synthesis equipment, cyan/violet light, and automation-forward visual language; it shares the economy and must not become a second game. Preserve the intuitive traditional idle-miner structure while giving the factory, logistics, and later sites their own identity. Do not assume every screen needs a bottom progression-flow strip; include progression flow only where it improves navigation, onboarding, or player understanding.
+
+Use **TheExploringDuck** as the visible developer/publisher brand in store-facing text, splash/credit surfaces, and mockups.
+
 ## Advertising / monetization
 
 Advertising is a planned part of the game architecture rather than a late-stage addition.
@@ -80,6 +92,138 @@ Ad rewards should accelerate an already-functional economy rather than compensat
 7. Add rewarded-ad placements one at a time and measure their effect on pacing.
 8. Add additional content, machines, resources, research, and prestige systems.
 9. Polish, device-test, balance, and prepare store release.
+
+## Near-term milestone
+
+Get the original Pocket Factory vertical slice **up and testing by the end of the week**. "Up and testing" means the first factory screen launches reliably, its core manual-to-automation loop is playable, and the headless economy checks cover the implemented rules. It does not require the full future factory map, prestige content, advertising integration, or final balancing.
+
+## Deferred concept — Convergence
+
+Keep this as a later expansion direction, not a current feature:
+
+- Industrial sites and advanced sites may eventually become two distinct production approaches with different strengths and visual identities.
+- A later **Convergence** event can join their supply chains, introduce cooperative work, and make combined production significantly more efficient than either approach alone.
+- Do not implement or balance the split paths, the event, or its rewards until the original single-factory loop is playable and tested.
+
+## Completed work
+
+### 2026-09-16 — Initial Godot/C# foundation
+
+- Switched the standing technical direction from Unity/C# to Godot/C#.
+- Added a headless C# economy core for approved pickaxe, drill, production-line, supervisor, reset-rate, and rewarded-ad duration constants from `GAME_RULES.md`.
+- Added a lightweight C# test runner that validates the approved economy tables and prevents TBD Drill reset rates from being silently invented.
+- Added a Godot C# project shell with a placeholder mobile-sized main scene wired to the economy core.
+
+Checks run:
+
+- `dotnet run --project tests\PocketFactory.Core.Tests\PocketFactory.Core.Tests.csproj`
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj`
+
+Still required:
+
+- Open and validate the project in the Godot editor.
+- Replace placeholder debug UI with the actual mobile factory screen.
+- Add save/load and bounded offline progression tests before treating the first vertical slice as complete.
+
+### 2026-09-16 — Factory Floor presentation pass
+
+- Replaced the temporary debug-control screen with a playable portrait factory floor: live Drill production, manual mining, machine tuning, and a visible temporary 2x overclock state.
+- Added a custom Godot C# pixel-inspired factory renderer with an animated mine cart, drill, furnace, conveyors, workers, lights, smoke, control room, and shipping floor.
+- Kept unapproved upgrade prices out of the permanent economy. The current tuning controls clearly identify that their costs remain pending balance approval.
+- Added the required Godot C# assembly-name setting to `project.godot` and verified the running scene can render through the Godot .NET runtime.
+
+Checks run:
+
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj`
+- `dotnet run --project tests\PocketFactory.Core.Tests\PocketFactory.Core.Tests.csproj`
+- Godot .NET runtime captures of the normal and 2x-overclock factory states.
+
+### 2026-09-17 — Factory floor polish pass
+
+- Smoothed the mine cart and drill animation curves while preserving their chunky pixel-art movement.
+- Added restrained factory depth cues: structural beams, controlled lamp and furnace glow, furnace sparks, moving ore, and stronger conveyor detailing.
+- Added a lit shipping door to make the rightward production flow and next-factory handoff more readable.
+- Added a headless-safe guard to the screenshot helper; visual captures now use Godot's normal renderer.
+
+Checks run:
+
+- `dotnet run --project tests\PocketFactory.Core.Tests\PocketFactory.Core.Tests.csproj --no-restore`
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj`
+- Godot .NET renderer capture of the polished factory floor.
+
+### 2026-09-17 — Industrial sci-fi tycoon direction
+
+- Replaced the retro/pixel-art visual direction with a clean industrial sci-fi company-site direction.
+- Reframed the first factory as three operational decks: acquisition, refinement, and assembly-to-shipping.
+- Established the shipping door as a visible factory handoff so future sites can become distinct company branches rather than repeated mining rooms.
+- Updated the prototype UI wording toward site operations while preserving the existing simulation and all economy behavior.
+
+### 2026-09-17 — 3D command-view prototype
+
+- Replaced the active factory-floor renderer with a procedural 3D clean-industrial site built in Godot C#.
+- Established a high-angle operator camera that shows the full site as an overseen production system: extraction, refinery, conveyor line, robotic work cell, and shipping gate.
+- Added real-time material flow, moving machine parts, responsive reactor and beacon pulses, purposeful lighting, and the first rounded refinery and signal forms.
+- Kept the implementation asset-light and procedural for this prototype; future art passes can replace individual modules with authored 3D models without changing the gameplay screen.
+
+Checks run:
+
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj`
+- `dotnet run --project tests\PocketFactory.Core.Tests\PocketFactory.Core.Tests.csproj --no-restore`
+- Godot .NET renderer capture of the high-angle command view.
+
+### 2026-09-17 — Pickaxe retained as player agency
+
+- Made the pickaxe an explicit manual-intervention pillar of the industrial sci-fi direction rather than retiring it with the pixel-art presentation.
+- Reframed the active first-site interaction as a `PICKAXE STRIKE`, which feeds the intake bay while the rest of the facility automates its output.
+- Added a visible pickaxe tool to the 3D acquisition bay and tied its strike motion to the existing manual action pulse.
+
+### 2026-09-17 — 2.5D idle-miner cutaway direction
+
+- Replaced the active full-3D command view with a clean 2.5D cutaway designed for the immediate readability of a traditional idle miner.
+- Built a vertical mine shaft with three working levels, animated elevator logistics, drill and refinery equipment, a visible pickaxe strike at the ore face, carts, and moving material.
+- Placed a compact factory wing beside the shaft so refined material visibly travels through automation and shipping without losing the mining identity.
+- Removed the unused full-3D renderer. Future presentation work should extend the cutaway, its levels, factory wings, and later-site visual variety rather than return to a full-3D gameplay camera.
+
+Checks run:
+
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj`
+- `dotnet run --project tests\PocketFactory.Core.Tests\PocketFactory.Core.Tests.csproj --no-restore`
+- Godot .NET renderer capture of the 2.5D cutaway.
+
+### 2026-09-17 — Earth-led industrial palette
+
+- Recolored the mine cutaway and mobile operations UI around coal-charcoal, stone, weathered steel, muted safety green, and rust/copper.
+- Replaced the prior cool neon-cyan treatment with restrained production-status light, keeping the pickaxe strike and active heat/hazard moments warm and readable.
+- Documented the early-site palette as a presentation rule; later sites can introduce more advanced materials while preserving strong material and status contrast.
+
+Checks run:
+
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj`
+- Godot .NET renderer capture of the earth-led industrial cutaway.
+
+### 2026-09-17 — Mining safety-color pass
+
+- Shifted early-site presentation to a recognizably mining-industrial color scheme: coal-black bays, worn rock and steel, safety yellow, and rust/copper accents.
+- Added purposeful yellow-and-black hazard markings to the surface boundary, mine-level platforms, and shipping door.
+- Used safety yellow as the active machine and primary action color, making the production path more legible at mobile scale.
+
+Checks run:
+
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj`
+- Godot .NET renderer capture of the mining safety-color cutaway.
+
+### 2026-09-20 — Late-NES dual-site presentation
+
+- Re-established late-NES-inspired pixel art as the active presentation direction: deliberate palettes, bold cutaway silhouettes, framed HUD panels, and crisp machine animation.
+- Added a working in-game Industrial/Advanced presentation switch. Industrial is the default and primary playable route; Advanced is a sci-fi reinterpretation of the same mine, machines, and economy rather than a second game.
+- Reworked the primary Industrial palette around deep navy rock, weathered steel, safety amber, rust-orange heat, off-white highlights, and restrained teal status light.
+- Added Advanced signal beacons, synthesis arcs, and cyan/violet accents while preserving the same factory layout and interactions.
+
+Checks run:
+
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj`
+- `dotnet run --project tests\PocketFactory.Core.Tests\PocketFactory.Core.Tests.csproj --no-restore`
+- Godot .NET renderer captures of Industrial and Advanced late-NES factory views.
 
 ## Current principle
 

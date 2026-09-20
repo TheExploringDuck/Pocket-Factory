@@ -2,9 +2,15 @@
 
 > **Working title:** Pocket Factory
 
-**Pocket Factory** is a mobile-first idle automation game about turning a tiny workshop into an increasingly ridiculous, efficient, and satisfying production machine.
+**Pocket Factory** is a mobile-first industrial factory game about growing a capable production company from its first mine into an ambitious inter-factory operation.
 
-The visual direction is **retro-inspired pixel art with modern presentation**: crisp chunky machines, readable silhouettes, expressive animation, sparks, smoke, particles, clean UI, and smooth feedback rather than strict hardware-era 8-bit limitations.
+The visual direction is **late-NES-inspired pixel art with modern polish through a traditional idle-miner cutaway**: readable underground work levels, elevator logistics, practical factories, active conveyors, bold machine silhouettes, framed HUD panels, and crisp sprite animation. It is intentionally limited and graphic, not a literal low-fidelity restriction.
+
+Industrial is the primary playable route, with deep navy rock, weathered steel, safety amber, rust-orange heat, off-white highlights, and restrained teal status lights. The same factory layout also supports an Advanced sci-fi visual mode with cyan/violet signal equipment and synthesis machinery. The two views share the same first-factory economy; they are not separate games.
+
+The player should feel like they are running an in-world corporation without turning the game into a suit-and-tie office simulation. Extraction is an early capability, not the game's permanent identity. Each factory should solve a distinct production problem and visibly hand output to the next stage or site through logistics and shipping.
+
+The pickaxe remains a signature manual tool: a player-driven ore strike that gets an intake bay moving or helps clear an early bottleneck, while the wider factory turns that direct action into automated output.
 
 ## Core Idea
 
@@ -27,7 +33,7 @@ A first playable vertical slice should stay intentionally small:
 - save/load
 - bounded offline progress
 - one factory screen
-- placeholder pixel-inspired art and effects
+- placeholder late-NES industrial and advanced presentation variants
 
 If those three machines are satisfying to watch and optimize, the project has a strong foundation. More content comes later.
 
@@ -67,7 +73,7 @@ Interstitial ads, if ever added, should only appear at natural breaks and with s
 
 ## Technical Direction
 
-The current implementation target is **Unity / C#**, mobile-first, with Android as the first release platform.
+The current implementation target is **Godot / C#**, mobile-first, with Android as the first release platform.
 
 Architecture should keep the production/economy simulation separate from presentation so the economy can be simulated, stress-tested, and balanced without rendering the full game.
 
@@ -75,7 +81,9 @@ Advertising should be isolated behind a provider interface so the core economy n
 
 ## Status
 
-**Concept and planning phase.**
+**Initial Godot/C# foundation.**
+
+The repository now contains a headless C# economy core, a lightweight test runner for approved `GAME_RULES.md` values, and a Godot C# project shell for the mobile-facing game.
 
 See:
 
@@ -84,4 +92,4 @@ See:
 
 ## Development
 
-Pocket Factory is an independently directed project developed with AI-assisted programming tools as part of the design, implementation, testing, and iteration workflow.
+Pocket Factory is an independently directed project by **TheExploringDuck**, developed with AI-assisted programming tools as part of the design, implementation, testing, and iteration workflow.
