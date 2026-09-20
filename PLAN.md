@@ -225,6 +225,25 @@ Checks run:
 - `dotnet run --project tests\PocketFactory.Core.Tests\PocketFactory.Core.Tests.csproj --no-restore`
 - Godot .NET renderer captures of Industrial and Advanced late-NES factory views.
 
+### 2026-09-20 — Closed-test persistence and Android scaffold
+
+- Added versioned local save data with validated restore behavior for the first factory state and the selected Industrial/Advanced presentation.
+- Added deterministic, bounded offline Drill production that rejects backwards device-clock movement and keeps its duration cap centralized for later balance review.
+- Corrected the manual Pickaxe Strike to use the approved Pickaxe rule rather than awarding Drill output.
+- Added an Android App Bundle export preset using the proposed `com.theexploringduck.pocketfactory` identifier without committing any signing credential.
+- Added a closed-test setup guide covering Android SDK, Godot export templates, external signing, and Play upload.
+
+Checks run:
+
+- `dotnet run --project tests\PocketFactory.Core.Tests\PocketFactory.Core.Tests.csproj --no-restore`
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj`
+
+Still required:
+
+- Install Android SDK and matching Godot Android templates on the build machine.
+- Generate and securely store a release upload key outside the repository.
+- Export and install the generated AAB through a Google Play closed-testing track.
+
 ## Current principle
 
 **Make the factory worth playing first. Ads may accelerate or enhance play; they should not be the reason the economy works.**

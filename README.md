@@ -89,6 +89,7 @@ See:
 
 - [`AGENTS.md`](AGENTS.md) for standing development rules
 - [`PLAN.md`](PLAN.md) for the development roadmap and task order
+- [`docs/ANDROID_CLOSED_TESTING.md`](docs/ANDROID_CLOSED_TESTING.md) for Android closed-test export setup
 
 ## Development
 

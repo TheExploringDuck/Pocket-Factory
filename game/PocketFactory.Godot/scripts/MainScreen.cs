@@ -6,7 +6,9 @@ namespace PocketFactory.Godot;
 
 public partial class MainScreen : Control
 {
-    private readonly GameState state = GameState.NewRun();
+    private static readonly TimeSpan MaximumOfflineProduction = TimeSpan.FromHours(8);
+
+    private GameState state = null!;
     private readonly MiningSimulator miningSimulator = new(new FactoryChanceSource());
 
     private Label metalLabel = null!;
@@ -23,12 +25,20 @@ public partial class MainScreen : Control
     private FactoryFloor factoryFloor = null!;
     private double drillAccumulator;
     private double overclockRemaining;
+    private double saveAccumulator;
+    private bool isAdvancedVisualTheme;
+    private string? startupActivity;
 
     public override void _Ready()
     {
-        InitializeVerticalSlice();
+        LoadOrStartRun();
         BuildInterface();
-        SetVisualTheme(FactoryVisualTheme.Industrial);
+        SetVisualTheme(isAdvancedVisualTheme ? FactoryVisualTheme.Advanced : FactoryVisualTheme.Industrial, false);
+        if (!string.IsNullOrEmpty(startupActivity))
+        {
+            activityLabel.Text = startupActivity;
+        }
+
         Refresh();
         CaptureRequestedFrame();
     }
@@ -38,7 +48,54 @@ public partial class MainScreen : Control
         UpdateAutomaticMining(delta);
         overclockRemaining = Math.Max(0d, overclockRemaining - delta);
         factoryFloor.SetAnimationState(overclockRemaining > 0d, state.DrillLevel, Line1Level);
+        saveAccumulator += delta;
+        if (saveAccumulator >= 20d)
+        {
+            SaveGame();
+        }
+
         RefreshHudOnly();
+    }
+
+    public override void _ExitTree() => SaveGame();
+
+    private void LoadOrStartRun()
+    {
+        var save = PocketFactorySaveStore.TryLoad();
+        if (save is null)
+        {
+            state = GameState.NewRun();
+            InitializeVerticalSlice();
+            return;
+        }
+
+        try
+        {
+            state = GameState.FromSnapshot(save.GameState);
+            isAdvancedVisualTheme = save.IsAdvancedVisualTheme;
+
+            var savedAt = DateTimeOffset.FromUnixTimeMilliseconds(save.SavedAtUnixMilliseconds);
+            var elapsed = DateTimeOffset.UtcNow - savedAt;
+            if (elapsed < TimeSpan.Zero)
+            {
+                startupActivity = "CLOCK CHECK  //  OFFLINE PRODUCTION PAUSED";
+                return;
+            }
+
+            var offlineResult = OfflineProgression.ApplyDrillProduction(state, elapsed, MaximumOfflineProduction);
+            if (offlineResult.CompletedCycles > 0)
+            {
+                var capNote = offlineResult.WasCapped ? "  //  SHIFT CAP REACHED" : string.Empty;
+                startupActivity = $"OFFLINE SHIFT +{offlineResult.MetalGained:0} METAL{capNote}";
+            }
+        }
+        catch (ArgumentException exception)
+        {
+            GD.PushWarning($"Pocket Factory save was ignored because it is invalid: {exception.Message}");
+            state = GameState.NewRun();
+            InitializeVerticalSlice();
+            startupActivity = "SAVE CHECK  //  STARTED A FRESH TEST RUN";
+        }
     }
 
     private void InitializeVerticalSlice()
@@ -229,9 +286,10 @@ public partial class MainScreen : Control
 
     private void MineOre()
     {
-        var result = miningSimulator.MineWithDrill(state);
+        var result = miningSimulator.MineWithPickaxe(state);
         activityLabel.Text = $"PICKAXE STRIKE +{result.MetalGained:0.0} METAL  //  INTAKE BAY ONLINE";
         factoryFloor.TriggerManualPulse();
+        SaveGame();
         Refresh();
     }
 
@@ -239,19 +297,26 @@ public partial class MainScreen : Control
     {
         overclockRemaining = EconomyRules.RewardedAdProductionMultiplierDuration.TotalSeconds;
         activityLabel.Text = "OUTPUT BOOST ACTIVE  //  TEMPORARY PRODUCTION LIFT";
+        SaveGame();
         Refresh();
     }
 
-    private void SetVisualTheme(FactoryVisualTheme theme)
+    private void SetVisualTheme(FactoryVisualTheme theme, bool announce = true)
     {
         factoryFloor.SetVisualTheme(theme);
         var isIndustrial = theme == FactoryVisualTheme.Industrial;
+        isAdvancedVisualTheme = !isIndustrial;
         siteLabel.Text = isIndustrial ? "INDUSTRIAL  /  IRON WORKS" : "ADVANCED  /  SIGNAL FOUNDRY";
-        activityLabel.Text = isIndustrial
-            ? "INDUSTRIAL SHIFT  //  PRODUCTION FLOW STABLE"
-            : "ADVANCED SHIFT  //  SYNTHESIS FLOW STABLE";
+        if (announce)
+        {
+            activityLabel.Text = isIndustrial
+                ? "INDUSTRIAL SHIFT  //  PRODUCTION FLOW STABLE"
+                : "ADVANCED SHIFT  //  SYNTHESIS FLOW STABLE";
+        }
+
         StyleButton(industrialViewButton, isIndustrial ? Palette.Amber : Palette.PanelLight, Palette.AmberDark, isIndustrial ? Palette.Ink : Palette.Cream);
         StyleButton(advancedViewButton, isIndustrial ? Palette.PanelLight : Palette.Teal, Palette.TealDark, isIndustrial ? Palette.Cream : Palette.Ink);
+        SaveGame();
     }
 
     private void TunePickaxe() => activityLabel.Text = "EXTRACTION BAY IS ALREADY DIALED IN AT LEVEL 10.";
@@ -266,6 +331,7 @@ public partial class MainScreen : Control
 
         state.SetDrillLevel(state.DrillLevel + 1);
         activityLabel.Text = $"REFINERY TUNED TO LEVEL {state.DrillLevel}. COSTS ARE PENDING BALANCE.";
+        SaveGame();
         Refresh();
     }
 
@@ -287,6 +353,7 @@ public partial class MainScreen : Control
 
         state.SetProductionLineLevel(1, currentLevel + 1);
         activityLabel.Text = $"LINE 01 TUNED TO LEVEL {currentLevel + 1}. COSTS ARE PENDING BALANCE.";
+        SaveGame();
         Refresh();
     }
 
@@ -330,6 +397,17 @@ public partial class MainScreen : Control
     }
 
     private int Line1Level => state.ProductionLineLevels.TryGetValue(1, out var level) ? level : 0;
+
+    private void SaveGame()
+    {
+        if (state is null)
+        {
+            return;
+        }
+
+        PocketFactorySaveStore.Save(state, isAdvancedVisualTheme);
+        saveAccumulator = 0d;
+    }
 
     private static Control Wrap(Control child, Color background, int padding, bool expand = false)
     {

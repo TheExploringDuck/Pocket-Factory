@@ -20,6 +20,46 @@ public sealed class GameState
 
     public static GameState NewRun() => new();
 
+    public GameStateSnapshot ToSnapshot() => new(
+        Metal,
+        Currency,
+        PickaxeLevel,
+        DrillLevel,
+        Supervisors,
+        HasActivatedResetRates,
+        productionLineLevels
+            .Select(pair => new ProductionLineSnapshot(pair.Key, pair.Value))
+            .ToArray());
+
+    public static GameState FromSnapshot(GameStateSnapshot snapshot)
+    {
+        ArgumentNullException.ThrowIfNull(snapshot);
+
+        if (snapshot.Metal < 0m || snapshot.Currency < 0m)
+        {
+            throw new ArgumentOutOfRangeException(nameof(snapshot), "Saved resources cannot be negative.");
+        }
+
+        var state = NewRun();
+        state.SetPickaxeLevel(snapshot.PickaxeLevel);
+        state.SetDrillLevel(snapshot.DrillLevel);
+        state.SetSupervisors(snapshot.Supervisors);
+        state.AddMetal(snapshot.Metal);
+        state.AddCurrency(snapshot.Currency);
+
+        if (snapshot.HasActivatedResetRates)
+        {
+            state.ActivateResetRates();
+        }
+
+        foreach (var line in snapshot.ProductionLines ?? [])
+        {
+            state.SetProductionLineLevel(line.LineNumber, line.Level);
+        }
+
+        return state;
+    }
+
     public void AddMetal(decimal amount)
     {
         if (amount < 0m)
@@ -87,3 +127,14 @@ public sealed class GameState
         productionLineLevels[lineNumber] = level;
     }
 }
+
+public sealed record GameStateSnapshot(
+    decimal Metal,
+    decimal Currency,
+    int PickaxeLevel,
+    int DrillLevel,
+    int Supervisors,
+    bool HasActivatedResetRates,
+    IReadOnlyList<ProductionLineSnapshot>? ProductionLines);
+
+public sealed record ProductionLineSnapshot(int LineNumber, int Level);

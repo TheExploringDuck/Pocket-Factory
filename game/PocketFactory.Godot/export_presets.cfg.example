@@ -1,0 +1,30 @@
+[preset.0]
+
+name="Android Closed Test"
+platform="Android"
+runnable=true
+advanced_options=false
+dedicated_server=false
+custom_features=""
+export_filter="all_resources"
+include_filter=""
+exclude_filter=""
+export_path="build/PocketFactory-closed-test.aab"
+encryption_include_filters=""
+encryption_exclude_filters=""
+encrypt_pck=false
+encrypt_directory=false
+script_export_mode=2
+
+[preset.0.options]
+
+gradle_build/use_gradle_build=true
+gradle_build/export_format=1
+architectures/armeabi-v7a=false
+architectures/arm64-v8a=true
+architectures/x86_64=false
+package/name="Pocket Factory"
+package/unique_name="com.theexploringduck.pocketfactory"
+package/signed=true
+version/code=1
+version/name="0.1.0"

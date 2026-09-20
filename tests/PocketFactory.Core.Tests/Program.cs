@@ -7,6 +7,8 @@ tests.ProductionLine1RulesMatchApprovedTable();
 tests.SupervisorCapacityMatchesApprovedTable();
 tests.ProductionLineUnlocksFollowApprovedGates();
 tests.TbdResetRatesRemainUnset();
+tests.GameStateRoundTripsThroughSnapshot();
+tests.OfflineProductionIsBoundedAndClockSafe();
 
 Console.WriteLine("PocketFactory.Core.Tests passed.");
 
@@ -103,6 +105,46 @@ internal sealed class EconomyRuleTests
         AssertNull(EconomyRules.GetDrillRule(8).PostResetCurrencyDropChance);
         AssertNull(EconomyRules.GetDrillRule(9).PostResetCurrencyDropChance);
         AssertNull(EconomyRules.GetDrillRule(10).PostResetCurrencyDropChance);
+    }
+
+    public void GameStateRoundTripsThroughSnapshot()
+    {
+        var state = GameState.NewRun();
+        state.SetPickaxeLevel(10);
+        state.SetDrillLevel(8);
+        state.SetSupervisors(1);
+        state.SetProductionLineLevel(1, 2);
+        state.AddMetal(123.45m);
+        state.AddCurrency(67.89m);
+        state.ActivateResetRates();
+
+        var restored = GameState.FromSnapshot(state.ToSnapshot());
+
+        AssertEqual(state.Metal, restored.Metal);
+        AssertEqual(state.Currency, restored.Currency);
+        AssertEqual(state.PickaxeLevel, restored.PickaxeLevel);
+        AssertEqual(state.DrillLevel, restored.DrillLevel);
+        AssertEqual(state.Supervisors, restored.Supervisors);
+        AssertEqual(state.HasActivatedResetRates, restored.HasActivatedResetRates);
+        AssertEqual(2, restored.ProductionLineLevels[1]);
+    }
+
+    public void OfflineProductionIsBoundedAndClockSafe()
+    {
+        var state = GameState.NewRun();
+        state.SetPickaxeLevel(10);
+        state.SetDrillLevel(1);
+
+        var capped = OfflineProgression.ApplyDrillProduction(state, TimeSpan.FromHours(12), TimeSpan.FromHours(2));
+        AssertTrue(capped.WasCapped);
+        AssertEqual(TimeSpan.FromHours(2), capped.AppliedDuration);
+        AssertEqual(13_584L, capped.CompletedCycles);
+        AssertEqual(139_575.6m, capped.MetalGained);
+
+        var beforeInvalidTime = state.Metal;
+        var invalid = OfflineProgression.ApplyDrillProduction(state, TimeSpan.FromMinutes(-1), TimeSpan.FromHours(2));
+        AssertEqual(0L, invalid.CompletedCycles);
+        AssertEqual(beforeInvalidTime, state.Metal);
     }
 
     private static void AssertTrue(bool value)
