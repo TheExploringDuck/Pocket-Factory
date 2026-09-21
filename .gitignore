@@ -9,6 +9,7 @@ export_presets.cfg
 bin/
 obj/
 *.sln
+!game/PocketFactory.Godot/PocketFactory.Godot.sln
 *.csproj.old
 
 # OS / editor

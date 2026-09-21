@@ -8,6 +8,8 @@ The project uses `com.theexploringduck.pocketfactory` as its proposed Android ap
 
 As of August 31, 2026, new phone/tablet apps and app updates submitted to Google Play must target Android 16 / API level 36 or higher. Before the first closed-test upload, confirm the installed Godot Android toolchain and generated Gradle project target API 36 or newer. Do not rely on an older API 35 setup simply because it builds locally.
 
+The current Godot 4.5.1 .NET Android template is configured and tested by Godot at API 35. It can produce a locally signed debug APK for device smoke testing, but that APK is not eligible for a Play upload. Upgrade to a Godot .NET Android export environment with a tested API 36 template before creating the first closed-test AAB.
+
 ## One-time machine setup
 
 1. Install Android Studio and complete its first-run setup.

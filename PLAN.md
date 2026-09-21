@@ -240,9 +240,24 @@ Checks run:
 
 Still required:
 
-- Install Android SDK and matching Godot Android templates on the build machine.
+- Upgrade the Godot .NET Android export environment to a template tested with Android API 36 before creating the first Google Play AAB. The currently installed Godot 4.5.1 template targets API 35, which is suitable only for local debug-device testing.
 - Generate and securely store a release upload key outside the repository.
 - Export and install the generated AAB through a Google Play closed-testing track.
+
+### 2026-09-21 — Android debug-device build foundation
+
+- Installed the Android SDK command-line tools, Platform-Tools/ADB, Android platforms 35 and 36, Build-Tools 35 and 36, CMake, and the Godot-required NDK locally; none are committed to the repository.
+- Installed the matching Godot 4.5.1 .NET export templates and Android Gradle template locally.
+- Added the Godot-project-local solution required to publish the C# assemblies for Android packing.
+- Produced a signed arm64 debug APK with the proposed package id `com.theexploringduck.pocketfactory`, Android min SDK 24, and the currently supported API 35 target. The package is for local device smoke testing only, not Google Play.
+
+Checks run:
+
+- `dotnet run --project tests\PocketFactory.Core.Tests\PocketFactory.Core.Tests.csproj --no-restore`
+- `dotnet build game\PocketFactory.Godot\PocketFactory.Godot.csproj --no-restore`
+- Godot C# arm64 PCK export
+- Android Gradle Mono debug APK build and `apksigner` verification
+- Android manifest/package inspection with `aapt`
 
 ## Current principle
 
