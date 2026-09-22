@@ -39,17 +39,21 @@ If those three machines are satisfying to watch and optimize, the project has a 
 
 ## Progression Direction
 
-The longer-term progression is expected to move through increasingly capable production eras, for example:
+The first major progression chapter spans **five Giga-Factories**.
 
-**Workshop → Factory → Industrial Complex → Automated Plant → Experimental Facility**
+Giga #1 closes the first Metal era at roughly a 35-hour baseline free-play target. Each later era introduces a newly discovered material, reuses the same relative five-factory structure, and requires the previous and new material at a **3:2 ratio**. Later eras target roughly 38–40 additional hours each, placing Giga #5 near 190–195 hours of baseline free progression.
+
+Competition becomes available after the player builds **Production Line 1**.
+
+The first planned Google Play closed-test candidate should be playable through **Giga-Factory #2**. Giga #3–#5 remain later content within the same first major progression chapter.
 
 Prestige should represent a meaningful technological leap rather than a reset for its own sake. A reset should unlock permanent capabilities, new automation possibilities, or new production systems.
 
 ## Monetization Philosophy
 
-Pocket Factory is designed to use ads, with **rewarded ads as the preferred format**.
+Pocket Factory uses **optional, player-initiated rewarded ads only**.
 
-The base game must remain playable without watching ads. Ads may accelerate progress or provide optional bonuses, but they should not be required for ordinary progression.
+There are **no forced ads**: no automatic interstitials, startup ads, transition ads, exit ads, or gameplay banners. Declining an ad must never block or penalize normal progression.
 
 Potential rewarded-ad uses include:
 
@@ -60,16 +64,17 @@ Potential rewarded-ad uses include:
 - bonus material delivery
 - extra research or prestige reward
 
+Optional purchases may provide convenience, acceleration, cosmetics, or supporter value, but the full progression path remains available without payment.
+
 The project should avoid:
 
 - energy systems that prevent play
-- paid or ad-gated retries
+- paid/ad-gated retries
 - loot boxes or randomized paid rewards
-- intentionally frustrating waits designed only to force an ad
-- constant banner ads covering the factory
-- frequent interstitial interruptions during active play
+- intentionally frustrating waits designed only to force an ad or purchase
+- pay-to-win competition advantages
 
-Interstitial ads, if ever added, should only appear at natural breaks and with strict frequency limits.
+Because forced advertising is not part of the game, an ad-free purchase is not part of the planned product model.
 
 ## Technical Direction
 
