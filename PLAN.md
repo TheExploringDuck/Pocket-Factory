@@ -54,13 +54,25 @@ Rewarded ads should be explicitly optional and provide clear, finite benefits su
 
 The player must know the reward before choosing to watch. Declining an ad must leave the normal gameplay loop functional and enjoyable.
 
-### Interstitial ads — limited use
+### No forced ads — hard rule
 
-If interstitial ads are implemented, show them only at natural breaks in play and apply sensible frequency limits. Do not interrupt active factory management or repeatedly block the player from normal actions.
+Pocket Factory must not use forced advertising.
+
+Do not implement:
+
+- automatic interstitial ads;
+- startup/pre-roll ads;
+- level-transition or factory-transition ads;
+- exit ads;
+- banner ads occupying gameplay space;
+- energy systems or artificial blockers designed to force an ad view.
+
+Advertising is limited to **player-initiated rewarded ads**. The reward must be stated before the player opts in, and declining an ad must never harm or block normal progression.
+
+Because there are no forced ads, an ad-free purchase is not part of the planned product model unless this direction is explicitly changed later.
 
 ### Avoid
 
-- Energy systems designed to force ad views
 - Paid/rewarded retries for ordinary progression
 - Random paid rewards or gambling-like monetization
 - Deliberately slowed progression intended to make ads feel mandatory
@@ -81,6 +93,26 @@ Economy changes should be tested through simulation before release. Track produc
 
 Ad rewards should accelerate an already-functional economy rather than compensate for an intentionally weak baseline economy.
 
+## First major progression chapter
+
+The launch-era long-form progression target is now:
+
+**Material Era 1 → Giga #1 → Material Era 2 → Giga #2 → Material Era 3 → Giga #3 → Material Era 4 → Giga #4 → Material Era 5 → Giga #5**
+
+- Giga #1 targets roughly **35 hours** of baseline free progression.
+- Each later Material Era targets roughly **38–40 additional hours**.
+- Giga #5 therefore lands near **190–195 hours** of baseline free progression.
+- After each Giga #1–#4 completion, use a short surprise-discovery message/event to introduce the next material.
+- Each later era uses a **3:2 previous-resource:new-resource** requirement rather than stacking every historical resource.
+- The newly discovered resource begins near **35% of the prior equivalent production rate** so the repeated era remains near the 38–40 hour target.
+- Giga #5 ends this repeated Material Era chapter. The system after Giga #5 should be meaningfully different rather than simply adding Resource #6.
+
+## Competition unlock
+
+The recurring competition system becomes available once the player constructs **Production Line 1** in the main game.
+
+Competition remains economically isolated from permanent account progression as defined in `COMPETITION.md`. Main-game spending must not directly buy leaderboard advantage.
+
 ## Development phases
 
 1. Establish deterministic simulation and data model.
@@ -95,7 +127,29 @@ Ad rewards should accelerate an already-functional economy rather than compensat
 
 ## Near-term milestone
 
-Get the original Pocket Factory vertical slice **up and testing by the end of the week**. "Up and testing" means the first factory screen launches reliably, its core manual-to-automation loop is playable, and the headless economy checks cover the implemented rules. It does not require the full future factory map, prestige content, advertising integration, or final balancing.
+Get the original Pocket Factory vertical slice **up and testing by the end of the week**. "Up and testing" means the first factory screen launches reliably, its core manual-to-automation loop is playable, and the headless economy checks cover the implemented rules.
+
+## Closed-testing content target
+
+Before beginning the planned Google Play closed test, target a build that is playable through **Giga-Factory #2**.
+
+That means the closed-test candidate should include, at minimum:
+
+- the opening/manual-mining sequence and Level-4 early automation;
+- Drill progression;
+- Production Lines 1–10 and Supervisors 1–5;
+- all five standard factories of Material Era 1;
+- Giga-Factory #1;
+- the surprise discovery transition into Industrial Alloy / Material Era 2;
+- the 3:2 previous:new resource economy for Material Era 2;
+- all five standard factories of Material Era 2;
+- Giga-Factory #2;
+- competition unlocking at Production Line 1;
+- save/load and offline progression across both eras;
+- reviewer access for any paid/restricted features;
+- optional rewarded-ad architecture, with no forced ads.
+
+Giga-Factories #3–#5 remain part of the first major progression chapter but do **not** need to be complete for the first closed test.
 
 ## Deferred concept — Convergence
 
