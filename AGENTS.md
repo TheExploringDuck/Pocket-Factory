@@ -16,6 +16,31 @@ Before modifying the project:
 
 Do not redesign unrelated systems as part of a targeted task.
 
+## Codex / Arden Execution Rules
+
+These are standing execution rules for Codex when working in this repository.
+
+1. **Pull latest `main` before starting work.** If local work conflicts with newer design documents, stop and reconcile instead of overwriting the newer rules.
+2. **Read the source-of-truth files first:** `AGENTS.md`, `GAME_RULES.md`, `PLAN.md`, `COMPETITION.md` when relevant, and the current implementation.
+3. **Use `GAME_RULES.md` as the numerical authority.** Approved/finalized values are not suggestions. Do not rebalance, round, replace, or invent constants unless the user explicitly requests a balance revision.
+4. **Use `PLAN.md` as the scope/roadmap authority.** The first closed-test target is playable progression through **Giga-Factory #2**.
+5. **Keep Godot/C# as the runtime stack.** Do not migrate the game runtime to Python, Unity, another engine, or another language unless explicitly instructed. Python may be used only for offline balance/simulation tooling when useful.
+6. **Preserve working systems.** Prefer the smallest change that satisfies the task. Do not refactor unrelated code, rename broad APIs, or rewrite functioning systems for style.
+7. **Do not silently redesign presentation.** The current direction is a clean animated **2D/2.5D industrial cutaway** with moving characters, machinery, conveyors, resources, and environmental motion. Do not return to late-NES/pixel-art as the required final style unless explicitly instructed.
+8. **Preserve manual player agency.** The pickaxe remains a visible early interaction even after automation begins.
+9. **Respect monetization rules.** No forced ads. Advertising is player-initiated rewarded advertising only. Do not create pay-to-win competition mechanics.
+10. **Respect competition isolation.** Competition unlocks at Production Line 1 and its economy must remain separate from permanent main-game spending/progression.
+11. **Save compatibility matters.** Extend/migrate versioned saves safely; never delete or invalidate player progress without an explicit migration plan.
+12. **Test incrementally.** Run the smallest relevant test/build after each meaningful change instead of waiting until the end of a large batch.
+13. **Stop on ambiguity that changes game design.** If implementation requires a new economy value, progression rule, monetization rule, material ratio, or post-Giga-5 design that is not already approved, leave it configurable/TBD and report it instead of choosing a value.
+14. **Conserve agent usage.** Complete the requested slice before optional polish. Do not spend substantial time generating speculative assets, broad refactors, or future systems outside the requested milestone.
+15. **Do not overwrite newer repository decisions.** Before replacing a design/document file, compare it with current `main`. Merge intentional changes rather than restoring an older local copy.
+16. **Finish with evidence.** Report files changed, behavior implemented, tests/builds actually run, failures/limitations, and deliberately deferred work. Never claim validation that was not executed.
+
+When a request is too large for one pass, prioritize in this order:
+
+**correct core simulation → save compatibility → tests → playable integration → presentation polish → optional tooling/documentation.**
+
 ## Product Direction
 
 Pocket Factory is a **mobile-first industrial factory game** about building a capable production company from the mine floor outward. The industrial route is the primary game and current implementation focus; an advanced sci-fi counterpart is a supported presentation and future-content direction.
@@ -96,28 +121,26 @@ Standing constraints:
 
 ## Art and Presentation
 
-The visual direction is **late-NES-inspired pixel art with modern polish**, not a literal hardware restriction or a full-3D management view. Use deliberate, limited palettes, bold tilework, chunky machine silhouettes, clean sprite animation, and sharp pixel edges.
+The active visual direction is a **clean stylized 2D/2.5D industrial cutaway with animated figures and moving machinery**.
 
-Use a clear site-operation language within a traditional, layered idle-miner cutaway: practical early industrial factories with wood-and-steel supports, carts, conveyors, furnaces, shipping bays, elevator logistics, and active machinery. The same production layout may also be shown through an advanced sci-fi skin using signal infrastructure, synthesis machinery, robotics, and unfamiliar materials. Treat reference images as style guidance, not exact layout requirements.
+Pixel art / late-NES presentation is historical prototype work, **not the required final direction**.
 
-Use the late-NES industrial palette for the primary site: deep navy rock, weathered steel, warm safety amber, rust-orange heat, off-white highlights, and restrained teal status lights. The advanced skin may add cyan and violet signal light while preserving the same crisp pixel-art language.
+Preserve the readable idle-miner-style cutaway and visible material flow, but present it with smoother authored animation and more expressive motion:
 
-Show the pickaxe as a purposeful piece of field equipment at early acquisition sites, with a clear visual relationship to the material intake and the automated line it feeds.
+- animated workers/characters with clear states such as idle, walk, pick-up, swing, and work;
+- visibly moving drills, conveyors, carts, elevators, machines, and processed materials;
+- readable industrial structures and factory layers;
+- environmental motion such as lights, smoke/steam, sparks, doors, and status indicators where useful;
+- clear visual indication of production flow, bottlenecks, machine state, and shipping output;
+- practical early industrial materials, with later eras allowed to introduce more advanced materials and visual language.
 
-Aim for:
+The short opening sequence should establish the character finding/using the pickaxe and transition quickly into live gameplay. Keep it skippable and do not build an elaborate cinematic/dialogue framework unless specifically requested.
 
-- readable factory layers and an obvious left-to-right material handoff
-- confident late-NES machine silhouettes, practical industrial materials, and deliberate visual hierarchy
-- simple framed HUD panels that support production, contracts, logistics, and expansion
-- smooth animation where it improves readability
-- restrained particles, glow, robotic motion, and production feedback
-- clear visual indication of bottlenecks, machine state, and shipping output
+Do not switch back to a full-3D command-view camera unless explicitly instructed.
 
-Do not require the bottom progression-flow strip on every screen. Use it only where it helps explain progression or navigation.
+Keep the pickaxe visually meaningful at early acquisition sites and maintain a clear relationship between manual input and the automation chain it starts.
 
-Embrace the immediate readability of a traditional idle-miner cutaway without becoming a clone. Extraction is an early capability, not the whole fantasy. Each factory should feel like a distinct company site that solves a new production problem. Keep Industrial as the default playable path while making Advanced an explicit alternate visual interpretation, not a second economy.
-
-Use **TheExploringDuck** for visible developer/publisher branding. Do not use **CasualGameStudios** in game branding, store-facing text, splash screens, menus, credits, or mockups unless a later issue explicitly changes the brand.
+Use **TheExploringDuck** for visible developer/publisher branding. Do not use **CasualGameStudios** in game branding, store-facing text, splash screens, menus, credits, or mockups unless a later explicit decision changes the brand.
 
 Do not use visual complexity to hide unclear mechanics.
 
