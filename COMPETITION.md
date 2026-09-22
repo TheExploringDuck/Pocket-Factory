@@ -2,6 +2,12 @@
 
 > Working competition specification. Competition balance values should remain configurable until real-player testing validates retention, fairness, and scoring behavior.
 
+## Competition unlock
+
+Competition becomes available when the player constructs **Production Line 1** in the main game.
+
+At that milestone, show a one-time unlock message and expose the competition entry point. Do not surface the competitive system earlier; the player should first understand manual mining, automation, Drill progression, and the first production line.
+
 ## Competition structure
 
 Pocket Factory uses a recurring **monthly ladder** built from **four weekly competition rounds**.
@@ -113,8 +119,10 @@ Exact resource quantities and monetary values remain **TBD** until the main econ
 - Main-game account age must not determine competition output.
 - Main-game purchased resources do not transfer into competition.
 - Competition must not become direct pay-to-win.
-- Any rewarded-ad competition benefit must be voluntary, limited/configurable, and included in balance testing.
-- Competition-specific purchases, if ever considered, require separate fairness review before implementation.
+- There are **no forced ads** in competition.
+- Any rewarded-ad competition benefit must be voluntary, clearly disclosed, limited/configurable, and included in balance testing.
+- Rewarded ads must not create an uncapped leaderboard advantage; equivalent ordinary-play access or a strict shared cap is required.
+- Competition-specific purchases, if ever considered, require separate fairness review before implementation and must not create direct pay-to-win progression.
 - Server-authoritative or otherwise tamper-resistant leaderboard validation will be required before public competitive rewards have meaningful value.
 
 ## Monthly lifecycle
