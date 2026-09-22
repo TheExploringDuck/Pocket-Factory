@@ -75,8 +75,10 @@ Standing constraints:
 - Never add loot boxes or randomized paid rewards.
 - Do not intentionally create frustrating waits solely to pressure ad viewing.
 - Do not place persistent banner ads over the active factory play area.
-- Do not add forced interstitial ads unless a GitHub issue explicitly authorizes them.
-- If interstitials are authorized later, use natural breaks and strict frequency caps.
+- **Never add forced ads of any kind.** This is a hard product rule.
+- Do not add forced interstitials, startup/pre-roll ads, level-transition ads, exit ads, or forced banner placements.
+- Advertising may only be player-initiated rewarded advertising unless the product direction is explicitly revised in `GAME_RULES.md`.
+- Because forced ads are not part of the product, do not add an ad-free purchase solely to remove advertising.
 - Rewarded-ad benefits must only be granted after a confirmed successful completion callback.
 - Reward granting must be idempotent so callbacks cannot duplicate rewards.
 - Core simulation code must not directly depend on a specific advertising SDK. Use an interface/adapter layer.
@@ -118,6 +120,16 @@ Embrace the immediate readability of a traditional idle-miner cutaway without be
 Use **TheExploringDuck** for visible developer/publisher branding. Do not use **CasualGameStudios** in game branding, store-facing text, splash screens, menus, credits, or mockups unless a later issue explicitly changes the brand.
 
 Do not use visual complexity to hide unclear mechanics.
+
+## Progression / release targets
+
+- The first major progression chapter contains **five Giga-Factories**.
+- Giga #1 closes Material Era 1 at roughly a 35-hour baseline target.
+- Later Material Eras reuse the same relative five-factory structure with a **3:2 previous-resource:new-resource** requirement and target roughly **38–40 additional hours each**.
+- Competition unlocks when the player constructs **Production Line 1**.
+- The first Google Play closed-test candidate should be playable through **Giga-Factory #2**.
+- Giga #3–#5 are later content within the same first major chapter and are not required for the first closed test.
+- Do not invent the post-Giga-5 system; that second-act design is intentionally open.
 
 ## Scope Discipline
 
