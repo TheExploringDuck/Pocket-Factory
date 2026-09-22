@@ -344,7 +344,61 @@ Base Giga-Factory conversion:
 
 Base conversion cycle: **1.00 second**.
 
-This makes Metal a continuing supply-chain input instead of obsolete currency. Material Era 2 costs and Giga-Factory upgrades will be balanced as a separate economy layer and must not silently alter the finalized Material Era 1 constants above.
+This makes Metal a continuing supply-chain input instead of obsolete currency.
+
+## Five-Giga material-era roadmap — finalized structure
+
+The first major progression chapter contains **five Giga-Factories**. Giga-Factory #1 closes Material Era 1; Giga-Factories #2–#5 each close one additional Material Era.
+
+The pacing target is:
+
+| Milestone | Target cumulative free-play time |
+|---|---:|
+| Giga-Factory #1 | ~35 hr |
+| Giga-Factory #2 | ~73–75 hr |
+| Giga-Factory #3 | ~112–115 hr |
+| Giga-Factory #4 | ~151–155 hr |
+| Giga-Factory #5 | ~190–195 hr |
+
+These are baseline no-purchase/no-ad targets, not guarantees. Skilled optimization, resets, offline production, and optional rewarded boosts can shorten them.
+
+### Material discovery transition
+
+Completing each Giga-Factory from #1 through #4 triggers a short **surprise discovery event/message** that introduces the next resource. The complete future material tree should not be shown to a new player in advance.
+
+The first transition remains:
+
+**Metal → Industrial Alloy**
+
+Later resource names may be chosen with their art/theme, but the economy rule is fixed.
+
+### 3:2 adjacent-resource rule
+
+After Giga-Factory #1, each new Material Era reuses the same five-standard-factory progression structure and relative cost/output tables instead of restarting exponential cost inflation.
+
+Major material requirements in the new era use exactly two adjacent resources at a **3:2 old:new ratio**:
+
+- **60% previous-era resource**
+- **40% newly discovered resource**
+
+Examples:
+
+- Material Era 2 uses **3 Metal : 2 Industrial Alloy**.
+- Material Era 3 uses **3 Era-2 resource : 2 Era-3 resource**.
+- Material Era 4 uses **3 Era-3 resource : 2 Era-4 resource**.
+- Material Era 5 uses **3 Era-4 resource : 2 Era-5 resource**.
+
+Do **not** require every historical material simultaneously. A resource remains a major progression input for its own era and the immediately following era, then may remain useful through background conversions, optional systems, or later crafting without becoming a mandatory multi-resource tax.
+
+### Repeated-era pacing normalization
+
+Because the newly discovered resource represents 40% of the next era's major material requirement, its initial equivalent production rate should begin at approximately **35% of the prior-era equivalent production rate**. This intentionally makes later eras slightly slower than Material Era 1 while keeping them reachable.
+
+Target each post-Giga material era at approximately **38–40 hours of baseline free progression**.
+
+The five-Giga chapter therefore targets roughly **190–195 hours** of baseline free progression.
+
+After Giga-Factory #5, do **not** automatically repeat the same pattern with a sixth resource. Giga #5 is the end of the first major progression chapter and should unlock a materially different second-act system or scale of play. That post-Giga-5 system remains intentionally open.
 
 ## Gems — finalized earning rules for Material Era 1
 
@@ -359,20 +413,34 @@ For Material Era 1:
 
 The Gem spending catalog is a future quality-of-life/cosmetic/permanent-upgrade system and is intentionally not part of the Material Era 1 core-economy freeze.
 
-## Advertising / monetization boundary
+## Advertising / monetization boundary — no forced ads
 
-Pocket Factory may use optional monetization, but monetization must complement the finalized baseline economy rather than become the reason it works.
+**No forced advertising is a hard product rule for Pocket Factory.**
 
-Current implementation may continue to use the existing **2× production for 5 minutes** rewarded-ad test value. Any additional rewarded-ad magnitudes, IAP quantities, real-money prices, ad-free pricing, or paid bundles must remain configurable until real progression testing exists.
+The game must never automatically interrupt normal play with an advertisement. Do not implement forced interstitials, forced pre-rolls, startup ads, level-transition ads, exit ads, or banner ads that occupy gameplay space.
 
-Rules:
+Advertising is limited to **player-initiated rewarded ads**. A rewarded ad may be offered only when:
 
-- The full game must remain playable without purchases or ads.
-- Ads remain optional.
+- the player explicitly chooses to watch it;
+- the reward is clearly stated before the ad begins;
+- declining or ignoring the offer leaves normal progression fully functional;
+- ad failure/no-fill/network loss does not block play or corrupt state;
+- the reward accelerates or enhances an already-functional free economy.
+
+Current implementation may continue to use the existing **2× production for 5 minutes** rewarded-ad test value. Other rewarded-ad magnitudes remain configurable until play testing provides real pacing data.
+
+Optional purchases may provide convenience, acceleration, cosmetics, or supporter value, but core progression must remain fully obtainable without payment.
+
+Because the game has no forced advertising, an **"ad-free" purchase is not part of the planned product model** unless the product direction is explicitly changed later.
+
+Additional rules:
+
 - No randomized paid rewards or loot boxes.
-- Do not create artificial waits solely to pressure a purchase or ad view.
+- Do not create artificial waits solely to pressure an ad view or purchase.
+- Do not sell exclusive access to ordinary core progression.
 - Purchase/ad rewards must be idempotent and safe against duplicate callbacks.
 - Monetization code stays abstracted from the core simulation.
+- Competition monetization must follow the separate competition fairness rules and must never become direct pay-to-win.
 
 ## Balance freeze
 
@@ -391,12 +459,21 @@ The following Material Era 1 core values are now **approved/finalized for implem
 
 Coding agents should treat these as constants/data, add tests around them, and not substitute new values without an explicit balance revision.
 
-Still intentionally open because they are outside the Material Era 1 core-economy freeze:
+The following broader progression rules are also approved:
 
-- Material Era 2 progression after the initial Industrial Alloy conversion.
-- Gem spending catalog.
-- real-money pricing and bundle contents.
-- additional ad reward types/durations beyond the current 2×/5-minute test.
-- live-service event/competition rewards.
+- five Giga-Factories form the first major progression chapter;
+- post-Giga eras use the same five-factory relative structure with a 3:2 previous:new resource requirement;
+- new-resource production begins near 35% of the prior equivalent rate to target ~38–40 hours per later era;
+- Giga #5 ends this repeated material-era chapter rather than automatically unlocking Resource #6;
+- all advertising is optional and player-initiated.
+
+Still intentionally open:
+
+- exact names/art themes for Material Era 3–5 resources;
+- the post-Giga-5 second-act system;
+- Gem spending catalog;
+- real-money pricing and bundle contents;
+- additional rewarded-ad types/durations beyond the current 2×/5-minute test;
+- live-service event/competition reward quantities.
 
 **Balance principle:** fast early feedback, progressively longer factory goals, and a Giga-Factory target that requires effort without depending on ads or purchases.
